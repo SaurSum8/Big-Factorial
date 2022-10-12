@@ -1,6 +1,6 @@
 # Big-Factorial
 
-A java program that uses multi-threading to compute large integer factorials.
+A Java program that uses multi-threading to compute large integer factorials.
 
 > There is no approximation and the output value is accurate.
 
