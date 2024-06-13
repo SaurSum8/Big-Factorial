@@ -1,17 +1,17 @@
-package factorials;
+package factoralSpeed;
 
 import java.math.BigInteger;
 
 public class BigFactorial {
 	
-	int totalThreads = 1;
-	int tThrFM = totalThreads;
-	int completionVal = 0;
+	private int totalThreads = 1;
+	private int tThrFM = totalThreads;
+	private int completionVal = 0;
 	
-	Fact_Threads[] ft;
+	private Fact_Threads[] ft;
 	
-	Object o = new Object();
-	boolean allDone = false;
+	private Object o = new Object();
+	private boolean allDone = false;
 	
 	public BigFactorial() {
 		
@@ -20,12 +20,13 @@ public class BigFactorial {
 		
 	}
 	
-	/**Note: the second parameter should be the instance of the BigFactorial class you are calling. <br>
+	/**
 	 * Example: <br><br>
 	 * {@code BigFactorial bf = new BigFactorial();} <br>
-	 * {@code bf.calculate(new BigInteger("100"), bf);}
+	 * {@code bf.calculate(new BigInteger("100"));} <br><br>
+	 * Returns Value in BigInteger
 	 */
-	public BigInteger calculate(BigInteger input, BigFactorial selfInstance) {
+	public BigInteger calculate(BigInteger input) {
 		
 		//Initialize
 		completionVal = 0;
@@ -39,10 +40,10 @@ public class BigFactorial {
 		for(int i = 1; i <= totalThreads; i++) {
 			
 			if(i != totalThreads)
-				ft[i - 1] = new Fact_Threads(i, eachThreadCompVal[0], BigInteger.ZERO, false, selfInstance);
+				ft[i - 1] = new Fact_Threads(i, eachThreadCompVal[0], BigInteger.ZERO, false, this);
 			
 			else
-				ft[i - 1] = new Fact_Threads(i, eachThreadCompVal[0], eachThreadCompVal[1], false, selfInstance);
+				ft[i - 1] = new Fact_Threads(i, eachThreadCompVal[0], eachThreadCompVal[1], false, this);
 			
 			ft[i - 1].start();
 			
@@ -77,7 +78,7 @@ public class BigFactorial {
 			
 			for(int i = 0; i < tThrFM; i++) {
 				
-				ft[i] = new Fact_Threads(i, ft[i].result, ft[tThrFM + i].result, true, selfInstance);
+				ft[i] = new Fact_Threads(i, ft[i].result, ft[tThrFM + i].result, true, this);
 				ft[i].start();
 				
 			}
@@ -107,7 +108,7 @@ public class BigFactorial {
 	
 	/**<b>Do not call this function! <br><br>
 	 * This will be automatically called by Fact_Threads!</b>*/
-	public void completionAdd() {
+	protected void completionAdd() {
 		
 		completionVal++;
 		
