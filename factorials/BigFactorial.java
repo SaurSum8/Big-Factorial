@@ -1,4 +1,4 @@
-package factoralSpeed;
+package factorials;
 
 import java.math.BigInteger;
 
